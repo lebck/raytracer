@@ -62,7 +62,10 @@ class Camera:
 
                     if hitdist and hitdist < maxdist:
                         maxdist = hitdist
-                        color = object.color_at(ray)
+
+                        p = ray.origin + ray.direction.scale(hitdist)
+
+                        color = object.color_at(ray, p, self.world.sun)
 
                 x_pixels.append(color)
 

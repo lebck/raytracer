@@ -2,6 +2,11 @@ import math
 
 from model.linalg.Point import Point
 
+from .Color import phuong
+
+
+
+
 
 class Sphere:
     def __init__(self, center: Point, radius: int):
@@ -20,6 +25,19 @@ class Sphere:
         if dis > 0:
             return v - math.sqrt(dis)
 
-    def color_at(self, ray):
+    def normal_at(self, p):
+        return (p - self.center).normalize()
+
+    def color_at(self, ray, p, sun):
         # TODO Richtige Beleuchtung implementieren
-        return 0, 0, 0
+
+        d = ray.direction
+        n = self.normal_at(p)
+
+        l = p - sun
+
+        color = phuong(l, n, d)
+
+        return tuple(color)
+
+
