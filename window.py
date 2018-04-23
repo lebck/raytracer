@@ -13,4 +13,4 @@ if __name__ == '__main__':
 
     pixels = world.camera.create_img(WIDTH, HEIGHT)
 
-    Image.fromarray(np.array(pixels).astype('uint8')).show()
+    Image.fromarray(pixels).show()

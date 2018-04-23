@@ -1,5 +1,7 @@
 import math
 
+import numpy as np
+
 from model.Ray import Ray
 from model.linalg.Point import Point
 from model.linalg.Vector import Vector
@@ -37,8 +39,6 @@ class Camera:
     def create_img(self, window_width, window_height):
         """Erzeuge das Bild als 2D- Liste von RGB-Werten"""
 
-        image = []
-
         # Erzeuge "Leinwand"
         height = 2 * math.tan(self.fov)
         width = self.RATIO * height
@@ -49,8 +49,11 @@ class Camera:
 
         color_helper = ColorHelper(self.world.objects, self.world.sun)
 
-        for y in range(window_height, 0, -1):
-            x_pixels = []
+        image = np.empty((window_height, window_width, 3), dtype=np.uint8)
+
+        # Erzeuge Bild von oben links nach unten rechts
+        for y in range(window_height):
+
             for x in range(window_width):
 
                 ray = self._get_ray(x, y, p_width, p_height, width, height)
@@ -68,16 +71,14 @@ class Camera:
 
                         color = object.color_at(ray, p, color_helper)
 
-                x_pixels.append(color)
+                r, g, b = np.uint8(color[0]), np.uint8(color[1]), np.uint8(color[2])
 
-            # Fortschritt ausgeben
-            if y >= height // 4:
-                if y == height // 2:
-                    print("50%")
-                elif y == 3 * height // 4:
-                    print("75%")
-                elif y == height // 4:
-                    print("25%")
-            image.append(x_pixels)
+                img_y = window_height - 1 - y
+
+                image[img_y][x][0] = r
+                image[img_y][x][1] = g
+                image[img_y][x][2] = b
+
+
 
         return image

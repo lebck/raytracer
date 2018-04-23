@@ -8,21 +8,17 @@ class Vector(LinalgObject):
         return Vector(ar)
 
     def normalize(self):
-        n = np.linalg.norm(self.get_coords())
-        x, y, z = list(np.array(self.get_coords()) / n)
-        return Vector(x, y, z)
+        n = np.linalg.norm(self.coords)
+        return Vector(self.coords / n)
 
     def scale(self, r):
-        x, y, z = np.array(self.get_coords()) * r
-        return Vector(x, y, z)
+        return Vector(self.coords * r)
 
     def dot(self, vector):
-        # print(self.coords(), vector.coords(), np.dot(self.coords(), vector.coords()))
-        return np.dot(self.get_coords(), vector.get_coords())
+        return np.dot(self.coords, vector.coords)
 
     def orthogonal(self):
-
-        x, y, z = self.get_coords()
+        x, y, z = tuple(self.coords)
         # Drehtrick
         return Vector(-z, y, x)
 
@@ -33,14 +29,14 @@ class Vector(LinalgObject):
             return self.scale(other)
 
     def __add__(self, other):
-        x, y, z = np.add(self.get_coords(), other.get_coords())
-        return Vector(x, y, z)
+        ar = np.add(self.coords, other.coords)
+        return Vector(ar)
 
     def __repr__(self):
         return "Vector" + super().__repr__()
 
     def __iter__(self):
-        for a in self.get_coords():
+        for a in self.coords:
             yield a
 
 

@@ -6,16 +6,16 @@ from model.linalg.Vector import Vector
 
 class Point(LinalgObject):
     def __sub__(self, other):
-        ar = np.array(self.get_coords()) - np.array(other.get_coords())
-        x, y, z = list(ar)
+        ar = self.coords - other.coords
 
-        return Vector(x, y, z)
+        return Vector(ar)
 
     def __add__(self, other):
         if isinstance(other, Vector):
-            x, y, z = self.get_coords()
-            x2, y2, z2 = other.get_coords()
-            return Point(x+x2, y+y2, z+z2)
+            ar1 = self.coords
+            ar2 = other.coords
+
+            return Point(np.add(ar1, ar2))
 
     def __repr__(self):
         return "Point" + super().__repr__()
