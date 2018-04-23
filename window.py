@@ -1,12 +1,8 @@
-import matplotlib.cm as cm
 import numpy as np
 
 from PIL import Image
 
-from model.Camera import Camera
 from model import World
-from model.linalg.Point import Point
-from model.linalg.Vector import Vector
 
 if __name__ == '__main__':
 

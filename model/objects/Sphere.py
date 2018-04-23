@@ -1,11 +1,7 @@
 import math
 
 from model.linalg.Point import Point
-
-from .Color import phuong
-
-
-
+from model.objects.Color import ColorHelper
 
 
 class Sphere:
@@ -28,16 +24,12 @@ class Sphere:
     def normal_at(self, p):
         return (p - self.center).normalize()
 
-    def color_at(self, ray, p, sun):
-        # TODO Richtige Beleuchtung implementieren
-
+    def color_at(self, ray, p, color_helper: ColorHelper):
         d = ray.direction
         n = self.normal_at(p)
 
-        l = p - sun
+        color = color_helper.phuong(p, n, d)
 
-        color = phuong(l, n, d)
-
-        return tuple(color)
+        return color
 
 

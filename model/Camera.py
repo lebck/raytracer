@@ -3,6 +3,8 @@ import math
 from model.Ray import Ray
 from model.linalg.Point import Point
 from model.linalg.Vector import Vector
+from model.objects.Color import ColorHelper
+from model.objects.Plane import Plane
 
 BACKGROUND_COLOR = (255, 255, 255)
 DIST = 750
@@ -30,9 +32,6 @@ class Camera:
 
         ray = Ray(self.e, self.f + xv + yv)
 
-        if x == 0 and y == 0 or x == width:
-            print(ray)
-
         return ray
 
     def create_img(self, window_width, window_height):
@@ -48,7 +47,9 @@ class Camera:
         p_width = width / (window_width - 1)
         p_height = height / (window_height - 1)
 
-        for y in range(window_height):
+        color_helper = ColorHelper(self.world.objects, self.world.sun)
+
+        for y in range(window_height, 0, -1):
             x_pixels = []
             for x in range(window_width):
 
@@ -65,7 +66,7 @@ class Camera:
 
                         p = ray.origin + ray.direction.scale(hitdist)
 
-                        color = object.color_at(ray, p, self.world.sun)
+                        color = object.color_at(ray, p, color_helper)
 
                 x_pixels.append(color)
 
