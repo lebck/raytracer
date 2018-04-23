@@ -1,20 +1,16 @@
-import time
 import timeit
-
-import numpy as np
 
 from PIL import Image
 
-from model import World
+from model import world
 
 if __name__ == '__main__':
-
     start = timeit.default_timer()
 
-    WIDTH = 1280//3
-    HEIGHT = 720//3
+    WIDTH = 400
+    HEIGHT = 400
 
-    world = World.get_standard_world()
+    world = world.get_standard_world()
 
     pixels = world.camera.create_img(WIDTH, HEIGHT)
 
@@ -22,4 +18,4 @@ if __name__ == '__main__':
 
     stop = timeit.default_timer()
 
-    print("Run time:", start-stop)
+    print("Run time: %s s" % (stop - start))

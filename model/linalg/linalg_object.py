@@ -2,7 +2,7 @@ import numpy as np
 
 
 class LinalgObject:
-    def __init__(self, x, y: int = None, z: int = None):
+    def __init__(self, x, y: float = None, z: float = None):
 
         # Entweder mit x, y, z oder direkt als np.array initialisieren
         if isinstance(x, np.ndarray):
