@@ -39,7 +39,6 @@ class Camera:
 
         ratio = window_width / window_height
 
-        # Erzeuge "Leinwand"
         height = 2 * math.tan(self.fov)
         width = ratio * height
 
@@ -64,7 +63,7 @@ class Camera:
                 for object in self.world.objects:
                     hitdist = object.intersect(ray)
 
-                    if hitdist and hitdist < maxdist:
+                    if hitdist and 0 < hitdist < maxdist:
                         maxdist = hitdist
 
                         p = ray.origin + ray.direction.scale(hitdist)
@@ -72,7 +71,7 @@ class Camera:
                         color = object.color_at(ray, p, color_helper)
 
                 color = color.coords
-                r, g, b = np.uint8(color[0]), np.uint8(color[1]), np.uint8(color[2])
+                r, g, b = color
 
                 img_y = window_height - 1 - y
 

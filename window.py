@@ -1,5 +1,5 @@
 import timeit
-
+import logging
 from PIL import Image
 
 from model import world
@@ -12,10 +12,13 @@ if __name__ == '__main__':
 
     world = world.get_standard_world()
 
+    print("Rendering Image (%sx%s)" % (WIDTH, HEIGHT))
+
     pixels = world.camera.create_img(WIDTH, HEIGHT)
 
-    Image.fromarray(pixels).show()
+    Image.fromarray(pixels, 'RGB').show()
 
     stop = timeit.default_timer()
 
-    print("Run time: %s s" % (stop - start))
+    print("Finished")
+    print("Run time: %ss" % (stop - start))

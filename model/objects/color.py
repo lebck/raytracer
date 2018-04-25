@@ -5,19 +5,19 @@ COLORS = {
     'black': Vector(0, 0, 0)
 }
 
-BACKGROUND_COLOR = Vector(255, 255, 255)
+BACKGROUND_COLOR = Vector(0, 0, 0)
 
 CA = Vector(100, 100, 50)
 
 KA = 0.1
-KD = 0.5
-KS = 0.5
+KD = 0.4
+KS = 0.7
 
 N = 2
 
 REC_DEPTH = 2
 
-KR = 0.3
+KR = 0.8
 
 CHECK_SIZE = 1
 
@@ -43,7 +43,7 @@ class ColorHelper:
 
                 return o.color_at(ray, p2, self, depth=depth + 1)
 
-        return BACKGROUND_COLOR
+        return None
 
     def checkerboard(self, p):
         v = Vector(p.coords)
@@ -77,8 +77,8 @@ class ColorHelper:
         # Reflektion
         if depth < REC_DEPTH and reflection:
             color_r = self.reflect(p, d, n)
-
-            color = (color * (1 - KR)) + (color_r * KR)
+            if color_r:
+                color = (color * (1 - KR)) + (color_r * KR)
 
         diffuse = color.scale(KD) * (l * n)
         specular = color.scale(KS) * (lr * d.scale(-1)) ** N

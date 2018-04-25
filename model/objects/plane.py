@@ -16,9 +16,7 @@ class Plane(WorldObject):
         b = ray.direction.dot(self.normal)
 
         if b:
-            t = - a / b
-            if t > 0:
-                return t
+            return - a / b
 
     def normal_at(self, p):
         return self.normal
