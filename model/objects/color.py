@@ -7,22 +7,22 @@ COLORS = {
 
 BACKGROUND_COLOR = Vector(0, 0, 0)
 
-CA = Vector(100, 100, 50)
+CA = Vector(0.3, 0.3, 0.1)
 
-KA = 0.1
-KD = 0.4
-KS = 0.7
+KA = 0.2
+KD = 0.9
+KS = 0.1
 
 N = 2
 
-REC_DEPTH = 2
+REC_DEPTH = 1
 
 KR = 0.8
 
 CHECK_SIZE = 1
 
 BASE_COLOR = Vector(0, 0, 0)
-OTHER_COLOR = Vector(255, 255, 255)
+OTHER_COLOR = Vector(1, 1, 1)
 
 
 class ColorHelper:
@@ -57,9 +57,10 @@ class ColorHelper:
             return BASE_COLOR
 
     def phong(self, p, n, d, color, reflection=False, depth=0):
+
         l = (self.sun - p).normalize()
 
-        lr = l.orthogonal().normalize()
+        lr = l.reflect(n).normalize()
 
         n = n.normalize()
         d = d.normalize()
@@ -68,8 +69,8 @@ class ColorHelper:
 
         # Schlagschatten
         if self.shadow(p, l):
-            x, y, z = list(map(normalize, ambient))
-            return Vector(x, y, z)
+            color = normalize(ambient)
+            return color
 
         if color == 'checkerboard':
             color = self.checkerboard(p)
@@ -85,11 +86,9 @@ class ColorHelper:
 
         color = ambient + diffuse + specular
 
-        # print(ambient, diffuse, specular)
+        color = normalize(color)
 
-        r, g, b = list(map(normalize, color))
-
-        return Vector(r, g, b)
+        return color
 
     def shadow(self, p, l):
         r = Ray(p, l)
@@ -105,15 +104,18 @@ class ColorHelper:
 
 def normalize(x):
     """Nur sinnvolle RGB-Werte akzeptieren"""
-    if 0 <= x <= 255:
-        return x
-    elif x < 0:
-        return 0
-    else:
-        return 255
+    def n(x):
+        if 0 <= x <= 1:
+            return x
+        elif x < 0:
+            return 0
+        else:
+            return 1
+
+    return Vector(*tuple(map(n, x)))
 
 
 if __name__ == "__main__":
     v1 = Vector(1, 1, 0)
 
-    print(v1.orthogonal())
+    print(v1.reflect())

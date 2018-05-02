@@ -18,10 +18,10 @@ class Vector(LinalgObject):
     def dot(self, vector):
         return np.dot(self.coords, vector.coords)
 
-    def orthogonal(self):
-        x, y, z = tuple(self.coords)
-        # Drehtrick
-        return Vector(-z, y, x)
+    def reflect(self, normal):
+        """Reflektiert den Vektor an gegebener Normale"""
+        r = self - (normal * (2 * (self * normal)))
+        return r
 
     def __mul__(self, other):
         if isinstance(other, Vector):

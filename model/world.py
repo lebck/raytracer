@@ -22,13 +22,13 @@ class World:
 def get_standard_world():
     """Erzeugt Standard-Welt zum Testen des Raytracers"""
     # -- Objekte erzeugen
-    s = Sphere(Point(-1, 1.5, 3), 1, (255, 0, 0), True)
-    s2 = Sphere(Point(-1, -1.5, 3), 1, (0, 255, 0), True)
-    s3 = Sphere(Point(1.5, 0, 3), 1, (0, 0, 255), True)
-    p = Plane(Point(-3, 0, 0), Vector(1, 0, 0), 'checkerboard', False)
-    t = Triangle(Point(-1, 1.5, 3), Point(-1, -1.5, 3), Point(1.5, 0, 3), (128, 128, 0), False)
+    s = Sphere(Point(-1, 1.5, 3), 1, (1, 0, 0), True)
+    s2 = Sphere(Point(-1, -1.5, 3), 1, (0, 1, 0), True)
+    s3 = Sphere(Point(1.5, 0, 3), 1, (0, 0, 1), True)
+    p = Plane(Point(-3, 0, 0), Vector(1, 0, 0), 'checkerboard', True)
+    t = Triangle(Point(-1, 1.5, 4), Point(-1, -1.5, 4), Point(1.5, 0, 4), (0.5, 0.5, 0), False)
 
-    objs = [s, p, s2, s3, t]
+    objs = [t, p, s, s2, s3]
     # --
 
     # -- Kamera-Parameter erzeugen
@@ -41,7 +41,7 @@ def get_standard_world():
     # --
 
     # Sonne
-    sun = Point(30, 30, -6)
+    sun = Point(5, 0, 0)
 
     standard_world = World(objs, cam_conf, sun)
 

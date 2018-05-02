@@ -50,6 +50,8 @@ class Camera:
 
         image = np.empty((window_height, window_width, 3), dtype=np.uint8)
 
+        px = window_height // 10
+
         # Erzeuge Bild von oben links nach unten rechts
         for y in range(window_height):
 
@@ -75,8 +77,10 @@ class Camera:
 
                 img_y = window_height - 1 - y
 
-                image[img_y][x][0] = r
-                image[img_y][x][1] = g
-                image[img_y][x][2] = b
+                image[img_y][x][0] = r * 255
+                image[img_y][x][1] = g * 255
+                image[img_y][x][2] = b * 255
+
+
 
         return image

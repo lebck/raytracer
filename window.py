@@ -1,5 +1,5 @@
 import timeit
-import logging
+
 from PIL import Image
 
 from model import world
@@ -7,8 +7,8 @@ from model import world
 if __name__ == '__main__':
     start = timeit.default_timer()
 
-    WIDTH = 400
-    HEIGHT = 400
+    WIDTH = 300
+    HEIGHT = 300
 
     world = world.get_standard_world()
 
@@ -21,4 +21,4 @@ if __name__ == '__main__':
     stop = timeit.default_timer()
 
     print("Finished")
-    print("Run time: %ss" % (stop - start))
+    print("Run time: %ss" % round((stop - start), 1))
